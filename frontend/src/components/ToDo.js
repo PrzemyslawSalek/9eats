@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Modal from "./components/Modal";
+import Modal from "./Modal";
 import axios from "axios";
+import Header from "../containers/pages/elements/Header";
 
-class App extends Component {
+class ToDo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,15 +42,11 @@ class App extends Component {
         .then((res) => this.refreshList());
       return;
     }
-    axios
-      .post("/api/todos/", item)
-      .then((res) => this.refreshList());
+    axios.post("/api/todos/", item).then((res) => this.refreshList());
   };
 
   handleDelete = (item) => {
-    axios
-      .delete(`/api/todos/${item.id}/`)
-      .then((res) => this.refreshList());
+    axios.delete(`/api/todos/${item.id}/`).then((res) => this.refreshList());
   };
 
   createItem = () => {
@@ -129,15 +126,11 @@ class App extends Component {
   render() {
     return (
       <main className="container">
-        <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
         <div className="row">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
               <div className="mb-4">
-                <button
-                  className="btn btn-primary"
-                  onClick={this.createItem}
-                >
+                <button className="btn btn-primary" onClick={this.createItem}>
                   Add task
                 </button>
               </div>
@@ -160,4 +153,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ToDo;
