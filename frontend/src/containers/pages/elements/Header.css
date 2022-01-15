@@ -1,3 +1,46 @@
 .header {
     display: block;
 }
+
+.header__navbar {
+    background-color: #242939;
+    padding-bottom: 0.7rem
+}
+
+.header__containter {
+    max-width: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.header__dropdown-toggle {
+    background-color: unset !important;
+    border: unset !important;
+    box-shadow: unset !important;
+}
+
+.header__navlink {
+    color: white;
+}
+
+.header__navlink:hover {
+    color: #2c69cf;
+}
+
+.header__image {
+    width: 40px;
+    height: 40px;
+}
+
+.header__navbar-brand {
+    color: #2c69cf;
+    font-size: 24px;
+}
+
+.header__logo {
+    width: 36px;
+    height: 36px;
+}

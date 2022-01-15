@@ -4,11 +4,7 @@ import "./Footer.css";
 
 class Footer extends Component {
   render() {
-    return (
-      <div className="footer">
-        <p>PWP Project 2022</p>
-      </div>
-    );
+    return <div className="footer">2022 © PWP Project</div>;
   }
 }
 
