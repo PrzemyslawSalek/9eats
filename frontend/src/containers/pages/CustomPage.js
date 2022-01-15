@@ -6,10 +6,6 @@ import Main from "./elements/Main";
 import "./CustomPage.css";
 
 export default class CustomPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { mainPage } = this.props;
 

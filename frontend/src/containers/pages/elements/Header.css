@@ -24,6 +24,7 @@
 
 .header__navlink {
     color: white;
+    cursor: pointer;
 }
 
 .header__navlink:hover {
@@ -38,6 +39,7 @@
 .header__navbar-brand {
     color: #2c69cf;
     font-size: 24px;
+    cursor: pointer;
 }
 
 .header__logo {

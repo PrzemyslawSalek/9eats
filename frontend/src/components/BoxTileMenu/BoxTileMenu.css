@@ -1,0 +1,13 @@
+.box-tile-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 450px) {
+    .box-tile-menu {
+        justify-content: center;
+    }
+}

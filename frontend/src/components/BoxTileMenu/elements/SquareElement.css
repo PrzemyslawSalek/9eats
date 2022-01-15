@@ -1,0 +1,29 @@
+.square-element {
+    width: 355px;
+    height: 355px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    cursor: pointer;
+    word-wrap: break-word;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0.7rem;
+    box-shadow: 0 0 1.25rem rgb(108 118 134 / 10%) !important;
+}
+
+.square-element__title {
+    margin-top: 30px;
+    font-size: 26px;
+}
+
+.square-element__image {
+    width: 220px;
+    height: 220px;
+    min-width: 220px;
+    min-height: 220px;
+    margin-bottom: 40px;
+}

@@ -1,0 +1,10 @@
+.box-auth {
+    align-self: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 450px) {
+    .box-auth__image-container {
+        display: none;
+    }
+}

@@ -37,7 +37,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="login-form">
         <h1>Logowanie</h1>
         <Form>
           <FormGroup>
