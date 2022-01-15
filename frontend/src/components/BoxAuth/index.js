@@ -3,6 +3,7 @@ import LoginForm from "./elements/LoginForm";
 import login from "./elements/login.png"
 import RegistrationForm from "./elements/RegistrationForm";
 
+import "./BoxAuth.css";
 
 class BoxAuth extends Component {
   constructor(props) {
@@ -20,11 +21,11 @@ class BoxAuth extends Component {
 
   render() {
     return (
-      <main className="container">
+      <main className="container box-auth">
         <div className="col-md-8 col-sm-10 mx-auto p-0">
           <div className="card p-3">
             <div className="row">
-              <div className="col">
+              <div className="col box-auth__image-container">
                 <img className="img-fluid" src={login}></img>
               </div>
               <div className="col">

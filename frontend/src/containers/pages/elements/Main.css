@@ -3,4 +3,5 @@
     height: 100%;
     display: flex;
     background-color: #7777771a;
+    overflow: auto;
 }

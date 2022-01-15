@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import {
   Navbar,
@@ -10,7 +11,9 @@ import {
   DropdownToggle,
   DropdownMenu,
 } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+
+import AvatarPhoto from "../../../images/avatar.jpeg";
+import LogoPhoto from "../../../images/logo.svg";
 
 import "./Header.css";
 
@@ -41,11 +44,15 @@ class Header extends Component {
   };
 
   logIn = () => {
-    this.props.navigation('/login')
+    this.props.navigation("/login");
   };
 
   logOut = () => {
     cookies.remove("access");
+  };
+
+  goOnWelcomePage = () => {
+    this.props.navigation("/");
   };
 
   renderProfileButton = () =>
@@ -57,7 +64,8 @@ class Header extends Component {
       <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <img
           className="header__image img-fluid rounded-circle mr-2"
-          src="https://3x.nd0.pl/assets/avatar-31f1348e654704c4dbc8bc12a8e537e904b8accd248c4dea55ae0e8af9fe8159.jpg"
+          alt="avatar"
+          src={AvatarPhoto}
         />
         <DropdownToggle caret className="header__dropdown-toggle">
           Szymon Sala
@@ -76,13 +84,11 @@ class Header extends Component {
       <div className="header">
         <Navbar className="header__navbar">
           <Container className="header__containter">
-            <NavbarBrand className="header__navbar-brand" href="/">
-              <img
-                className="header__logo"
-                alt=""
-                src="https://api-appsoup.9bits.com/uploads/5f89e1ff/ce/ce7cee4d63b696f72de76c7f9652fe5c/logo9bits-wh.svg"
-              />{" "}
-              eats
+            <NavbarBrand
+              className="header__navbar-brand"
+              onClick={this.goOnWelcomePage}
+            >
+              <img className="header__logo" alt="9eats" src={LogoPhoto} /> eats
             </NavbarBrand>
             {this.renderProfileButton()}
           </Container>
@@ -96,4 +102,4 @@ export default function (props) {
   const navigation = useNavigate();
 
   return <Header {...props} navigation={navigation} />;
-};
+}
