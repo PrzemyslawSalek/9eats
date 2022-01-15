@@ -23,5 +23,6 @@ router.register(r'todos', views.TodoView, 'todo')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('auth.urls')),
     path('api/', include(router.urls)),
 ]
