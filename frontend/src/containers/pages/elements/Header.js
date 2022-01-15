@@ -10,6 +10,7 @@ import {
   DropdownToggle,
   DropdownMenu,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 import "./Header.css";
 
@@ -21,7 +22,7 @@ class Header extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      logged: cookies.get("userToken"),
+      logged: cookies.get("access"),
     };
   }
 
@@ -30,7 +31,7 @@ class Header extends Component {
   };
 
   onCookieChange = () => {
-    this.setState({ logged: cookies.get("userToken") });
+    this.setState({ logged: cookies.get("access") });
   };
 
   toggle = () => {
@@ -40,11 +41,11 @@ class Header extends Component {
   };
 
   logIn = () => {
-    cookies.set("userToken", "Pacman", { path: "/" });
+    this.props.navigation('/login')
   };
 
   logOut = () => {
-    cookies.remove("userToken");
+    cookies.remove("access");
   };
 
   renderProfileButton = () =>
@@ -91,4 +92,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default function (props) {
+  const navigation = useNavigate();
+
+  return <Header {...props} navigation={navigation} />;
+};

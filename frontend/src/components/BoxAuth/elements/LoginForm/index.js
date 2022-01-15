@@ -1,18 +1,12 @@
 import React, { Component } from "react";
-import {
-  Form,
-  FormGroup,
-  Input,
-  Button,
-  NavLink,
-} from "reactstrap";
+import { Form, FormGroup, Input, Button, NavLink } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-import RegistrationForm from "../RegistrationForm"
+import "./LoginForm.css";
 
-import "./LoginForm.css"
-
+const cookies = new Cookies();
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +22,11 @@ class LoginForm extends Component {
         username: this.state.login,
         password: this.state.password,
       })
-      .then((res) => this.props.navigation("/"))
+      .then((res) => {
+        cookies.set("access", res.data.access, { path: "/" });
+        cookies.set("refresh", res.data.refresh, { path: "/" });
+        this.props.navigation("/");
+      })
       .catch((res) => console.log(res));
   };
 
