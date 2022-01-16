@@ -10,7 +10,11 @@ class BoxTileMenu extends Component {
   render() {
     return (
       <div className="box-tile-menu">
-        <SquareElement title="Jedzonko" path="/" imageSrc={FoodPhoto} />
+        <SquareElement
+          title="Jedzonko"
+          path="/food-order"
+          imageSrc={FoodPhoto}
+        />
         <SquareElement title="To-do" path="/todo" imageSrc={TodoListPhoto} />
       </div>
     );

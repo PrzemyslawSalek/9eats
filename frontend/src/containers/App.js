@@ -5,6 +5,7 @@ import CustomPage from "./pages/CustomPage";
 import ToDo from "../components/ToDo";
 import BoxTileMenu from "../components/BoxTileMenu/index";
 import BoxAuth from "../components/BoxAuth/index";
+import BoxFoodOrder from "../components/BoxFoodOrder";
 
 export default function () {
   return (
@@ -13,6 +14,10 @@ export default function () {
         <Route path="/" element={<CustomPage mainPage={BoxTileMenu} />} />
         <Route path="/todo" element={<CustomPage mainPage={ToDo} />} />
         <Route path="/login" element={<CustomPage mainPage={BoxAuth} />} />
+        <Route
+          path="/food-order"
+          element={<CustomPage mainPage={BoxFoodOrder} />}
+        />
       </Routes>
     </Router>
   );
