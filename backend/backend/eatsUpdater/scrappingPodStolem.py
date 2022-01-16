@@ -2,28 +2,28 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def find_addons(description):
+def find_addons(ingredients):
     list_of_addons = []
 
-    if(description.find("ziemniaki") > 0):
+    if(ingredients.find("ziemniaki") > 0):
         list_of_addons.append("ziemniaki")
 
-    if(description.find("ryż") > 0):
+    if(ingredients.find("ryż") > 0):
         list_of_addons.append("ryż")
 
-    if(description.find("śmietana") > 0):
+    if(ingredients.find("śmietana") > 0):
         list_of_addons.append("śmietana")
 
-    if(description.find("skwarki") > 0):
+    if(ingredients.find("skwarki") > 0):
         list_of_addons.append("skwarki")
 
-    if(description.find("kasza gryczana") > 0):
+    if(ingredients.find("kasza gryczana") > 0):
         list_of_addons.append("kasza gryczana")
 
-    if(description.find("frytki") > 0):
+    if(ingredients.find("frytki") > 0):
         list_of_addons.append("frytki")
 
-    if(description.find("kasza pęczak") > 0):
+    if(ingredients.find("kasza pęczak") > 0):
         list_of_addons.append("kasza pęczak")
 
     return list_of_addons
@@ -64,7 +64,7 @@ def get_at_day(day):
 
     for i in range(len(tittle_of_dishes)):
         list_of_dishes.append({"tittle": tittle_of_dishes[i].text.strip(), "price": price_to_number(
-            price_of_dishes[i].text.strip()), "description": find_addons(description_of_dishes[i].text.strip())})
+            price_of_dishes[i].text.strip()), "ingredients": find_addons(description_of_dishes[i].text.strip())})
 
     return list_of_dishes
 

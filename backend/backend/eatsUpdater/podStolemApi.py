@@ -12,7 +12,7 @@ def update_eats():
         for dish in menu:
             eats = Eats()
             eats.name = dish["tittle"]
-            eats.description = dish["description"]
+            eats.ingredients = dish["ingredients"]
             eats.price = dish["price"]
             eats.timestamp = today
             eats.save()
