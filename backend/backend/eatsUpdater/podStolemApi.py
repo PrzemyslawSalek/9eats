@@ -1,14 +1,18 @@
 import imp
 from eats.models import Eats
 from .scrappingPodStolem import get_menu
+from datetime import datetime
+from django.utils import timezone
 
-
-def update_forecast():
-    menu = get_menu(1) #dzień tygodnia
+def update_eats():
+    print("Pod stołem update")
+    today = datetime.now(tz=timezone.utc)
+    menu = get_menu(today.weekday()) #dzień tygodnia
     if menu is not None:
         for dish in menu:
             eats = Eats()
             eats.name = dish["tittle"]
             eats.description = dish["description"]
             eats.price = dish["price"]
+            eats.timestamp = today
             eats.save()

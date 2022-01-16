@@ -5,5 +5,5 @@ from eatsUpdater import podStolemApi
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(podStolemApi.update_forecast, 'interval', seconds=2)
+    scheduler.add_job(podStolemApi.update_eats, 'cron', hour=8+1, minute=0)
     scheduler.start()

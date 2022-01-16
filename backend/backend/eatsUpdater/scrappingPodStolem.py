@@ -28,12 +28,14 @@ def find_addons(description):
 
     return list_of_addons
 
+
 def price_to_number(price):
     number = price.replace(',', '.')
     number = number[0:-3]
     return float(number)
 
-def get_menu(day):
+
+def get_at_day(day):
     menu_id = "menu-codziennie"
     if(day == 1):
         menu_id = "menu-poniedzialek"
@@ -61,8 +63,15 @@ def get_menu(day):
     list_of_dishes = []
 
     for i in range(len(tittle_of_dishes)):
-        list_of_dishes.append({"tittle": tittle_of_dishes[i].text.strip(), "price": price_to_number(price_of_dishes[i].text.strip()),
-        "description": find_addons(description_of_dishes[i].text.strip())})
-        
+        list_of_dishes.append({"tittle": tittle_of_dishes[i].text.strip(), "price": price_to_number(
+            price_of_dishes[i].text.strip()), "description": find_addons(description_of_dishes[i].text.strip())})
+
     return list_of_dishes
 
+
+def get_menu(day):
+    daily = get_at_day(0)
+    if day < 5:  # when monday to friday
+        for d in get_at_day(day+1):
+            daily.append(d)
+    return daily
