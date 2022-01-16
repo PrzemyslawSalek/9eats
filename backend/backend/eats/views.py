@@ -10,7 +10,7 @@ class EatView(generics.ListAPIView):
     serializer_class = EatsSerializers
 
     def get_queryset(self):
-        a = Eats.objects.order_by('-timestamp').first()
+        a = Eats.objects.order_by('-timestamp').first() #a co jeśli nie bedzie jedzenie w DB
         return Eats.objects.filter(timestamp=a.timestamp)
 
 def refreshEatsList(request):
