@@ -1,3 +1,7 @@
 .box-orders-history {
     display: block;
 }
+
+.box-orders-history__card {
+    border: 1px solid #24293971;
+}
