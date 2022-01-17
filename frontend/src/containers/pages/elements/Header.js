@@ -55,6 +55,10 @@ class Header extends Component {
     this.props.navigation("/");
   };
 
+  goOnHistoryOrders = () => {
+    this.props.navigation("/orders/history");
+  };
+
   renderProfileButton = () =>
     !this.state.logged ? (
       <NavLink className="header__navlink" onClick={this.logIn}>
@@ -72,7 +76,9 @@ class Header extends Component {
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem>Profil</DropdownItem>
-          <DropdownItem>Twoje zamówienia</DropdownItem>
+          <DropdownItem onClick={this.goOnHistoryOrders}>
+            Twoje zamówienia
+          </DropdownItem>
           <DropdownItem divider />
           <DropdownItem onClick={this.logOut}>Wyloguj</DropdownItem>
         </DropdownMenu>
