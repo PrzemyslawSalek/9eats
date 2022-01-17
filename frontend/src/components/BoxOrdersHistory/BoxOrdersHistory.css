@@ -3,5 +3,6 @@
 }
 
 .box-orders-history__card {
-    border: 1px solid #24293971;
+    height: 100%;
+    border: 1px solid #242939;
 }

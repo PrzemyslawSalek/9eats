@@ -2,30 +2,29 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  border-bottom: 4px solid #242939;
-}
-
-.order:last-child {
-    border: unset;
+  border: 1px solid #242939;
+  margin: 8px;
 }
 
 .order__title-content {
     display: flex;
     flex-direction: row;
+    gap: 50px;
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    border-bottom: 2px solid #2429390e;
+    border-bottom: 2px solid #24293934;
 }
 
 .order__dish {
     padding: 6px 27px;
-    border-bottom: 1px solid #2429390e;
+    border-bottom: 1px solid #24293934;
     font-size: 14px;
 }
 
 .order__dish:last-child {
     border: unset;
+    padding-bottom: 10px;
 }
 
 .order__title {

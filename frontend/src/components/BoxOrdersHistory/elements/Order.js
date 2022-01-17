@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Card } from "reactstrap";
 
 import "./Order.css";
 
@@ -7,7 +8,7 @@ class Order extends Component {
     const { order } = this.props;
 
     return (
-      <div className="order">
+      <Card className="order">
         <div className="order__title-content">
           <div className="order__title">Zamówienie 17.01.2022</div>
           {order.paid ? (
@@ -22,7 +23,7 @@ class Order extends Component {
               {dish.name}
             </div>
           ))}
-      </div>
+      </Card>
     );
   }
 }

@@ -36,7 +36,68 @@ const mockOrders = [
     paid: false,
     completed: false,
   },
+  {
+    dishes: [
+      {
+        name: "Kopytka",
+        amount: "5",
+        price: "56.00",
+        ingredients: "Ziemniaki",
+      },
+      {
+        name: "Kotlet",
+        amount: "1",
+        price: "16.00",
+        ingredients: "Ziemniaki",
+      },
+    ],
+    paid: true,
+    completed: true,
+  },
+  {
+    dishes: [
+      {
+        name: "Zupa",
+        amount: "5",
+        price: "56.00",
+        ingredients: "",
+      },
+    ],
+    paid: false,
+    completed: false,
+  },
+  {
+    dishes: [
+      {
+        name: "Kopytka",
+        amount: "5",
+        price: "56.00",
+        ingredients: "Ziemniaki",
+      },
+      {
+        name: "Kotlet",
+        amount: "1",
+        price: "16.00",
+        ingredients: "Ziemniaki",
+      },
+    ],
+    paid: true,
+    completed: true,
+  },
+  {
+    dishes: [
+      {
+        name: "Zupa",
+        amount: "5",
+        price: "56.00",
+        ingredients: "",
+      },
+    ],
+    paid: false,
+    completed: false,
+  },
 ];
+
 class BoxOrdersHistory extends Component {
   render() {
     return (
