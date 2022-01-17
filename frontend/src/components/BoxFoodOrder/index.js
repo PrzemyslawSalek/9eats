@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 import { formatCash } from "../../utils";
 
@@ -9,6 +10,7 @@ import FoodOptions from "./elements/FoodOptions";
 
 import "./BoxFoodOrder.css";
 
+const cookies = new Cookies();
 class BoxFoodOrder extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,16 @@ class BoxFoodOrder extends Component {
   componentDidMount = () => {
     axios
       .get("/eats/today/")
-      .then((res) => this.setState({ food: res.data }))
+      .then((res) => {
+        const formatedData = res.data.map(function (el) {
+          return {
+            name: el.name,
+            price: parseFloat(el.price),
+            ingredients: el.ingredients,
+          };
+        });
+        this.setState({ food: formatedData });
+      })
       .catch((err) => console.log(err));
   };
 
@@ -35,7 +46,7 @@ class BoxFoodOrder extends Component {
           name: el.name,
           price: el.price,
           ingredients: el.ingredients,
-          size: el.size + 1,
+          amount: el.amount + 1,
         };
       } else {
         return el;
@@ -44,9 +55,10 @@ class BoxFoodOrder extends Component {
     if (!added) {
       filtered.push({
         ...order,
-        size: 1,
+        amount: 1,
       });
     }
+
     this.setState({
       orders: filtered,
       currentPrice: this.state.currentPrice + order.price,
@@ -57,7 +69,7 @@ class BoxFoodOrder extends Component {
     let deductedPrice = 0;
     let filtered = this.state.orders.filter(function (el) {
       if (el.name === order.name) {
-        deductedPrice += el.price * el.size;
+        deductedPrice += el.price * el.amount;
         return false;
       }
       return true;
@@ -72,7 +84,16 @@ class BoxFoodOrder extends Component {
     this.props.navigation("/");
   };
 
-  submitOrder = () => {};
+  submitOrder = () => {
+    axios
+      .post(`/orders/${cookies.get("portalUserToken")}`, {
+        dishes: this.state.orders,
+      })
+      .then((res) => {
+        // TO DO - bramka płatności
+      })
+      .catch((res) => console.log(res));
+  };
 
   render() {
     const { currentPrice, orders } = this.state;
@@ -91,7 +112,7 @@ class BoxFoodOrder extends Component {
             {orders &&
               orders.map((option, key) => (
                 <p key={key}>
-                  {option.name} - {option.selectedIngredient} x{option.size}
+                  {option.name} - {option.selectedIngredient} x{option.amount}
                 </p>
               ))}
             {`Wartość zamówienia: ${formatCash(currentPrice)}`}

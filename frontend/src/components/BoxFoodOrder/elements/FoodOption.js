@@ -40,7 +40,7 @@ class FoodOption extends Component {
 
   render() {
     const { selectedIngredient } = this.state;
-    const { option, addOrder, removeOrder } = this.props;
+    const { option, removeOrder } = this.props;
 
     return (
       <div className="food-option">
