@@ -19,18 +19,6 @@ export default function () {
           path="/login"
           element={<CustomPage title="Logowanie" mainPage={BoxAuth} />}
         />
-        <Route
-          path="/food-order"
-          element={
-            <CustomPage title="Zamów jedzenie" mainPage={BoxFoodOrder} />
-          }
-        />
-        <Route
-          path="/orders/history"
-          element={
-            <CustomPage title="Historia zamówień" mainPage={BoxOrdersHistory} />
-          }
-        />
       </Routes>
     </Router>
   );
