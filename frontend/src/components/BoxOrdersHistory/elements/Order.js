@@ -4,11 +4,39 @@ import { Card } from "reactstrap";
 import "./Order.css";
 
 class Order extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false,
+    };
+  }
+
+  setOrderClass = () => {
+    const { selected } = this.state;
+    const { ordersSelected } = this.props;
+
+    if (ordersSelected) {
+      return selected ? "order" : "order unselected-order";
+    } else {
+      return "order";
+    }
+  };
+
+  selectOnClick = () => {
+    const { selected } = this.state;
+    const { order, addOrder, removeOrder } = this.props;
+
+    if (!order.paid) {
+      this.setState({ selected: !selected });
+      return selected ? removeOrder(order) : addOrder(order);
+    }
+  };
+
   render() {
     const { order } = this.props;
 
     return (
-      <Card className="order">
+      <Card className={this.setOrderClass()} onClick={this.selectOnClick}>
         <div className="order__title-content">
           <div className="order__title">Zamówienie 17.01.2022</div>
           {order.paid ? (
