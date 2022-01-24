@@ -23,7 +23,10 @@ class LoginForm extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        cookies.set("access", res.data.access, { path: "/" });
+        cookies.set("access", res.data.access, {
+          path: "/",
+          maxAge: 86400, //Set access token on 1 day
+        });
         cookies.set("refresh", res.data.refresh, { path: "/" });
         this.props.navigation("/");
       })

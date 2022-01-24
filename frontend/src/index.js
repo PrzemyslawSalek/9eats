@@ -5,6 +5,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import App from "./containers/App";
 import reportWebVitals from "./reportWebVitals";
+import axiosInterceptor from "./axios.interceptor";
+
+//Use to define default behavior during requests and responses
+axiosInterceptor()
 
 ReactDOM.render(
   <React.StrictMode>
