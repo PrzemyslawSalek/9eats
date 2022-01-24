@@ -22,6 +22,6 @@ class OrderView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         order = Order.objects.create(
             dishes=serializer.data["dishes"],
-            user=serializer.context["request"].user
+            user=str(serializer.context["request"].user)
         )
         order.save()
