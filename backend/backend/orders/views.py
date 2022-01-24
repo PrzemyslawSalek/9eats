@@ -5,7 +5,7 @@ from rest_framework import generics
 
 
 class OrderView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated)
+    permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializers
 
     def get_queryset(self):
