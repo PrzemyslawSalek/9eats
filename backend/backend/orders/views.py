@@ -9,7 +9,15 @@ class OrderView(generics.ListCreateAPIView):
     serializer_class = OrderSerializers
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+        obj = []
+        for o in Order.objects.filter(user=self.request.user):
+            order_price = 0
+            for dish in o.dishes:
+                order_price += dish["price"] * dish["amount"]
+            o.price = order_price
+            obj.append(o)
+
+        return obj
 
     def perform_create(self, serializer):
         order = Order.objects.create(

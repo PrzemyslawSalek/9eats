@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 
 class OrderSerializers(serializers.ModelSerializer):
+    price = serializers.ReadOnlyField()
     class Meta:
         model = Order
-        fields = ['dishes', 'paid', 'completed', 'timestamp']
+        fields = ['id', 'dishes', 'paid', 'completed', 'timestamp', 'price']
