@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Container } from "reactstrap";
+import axios from "axios";
 
 import OrdersList from "./elements/OrdersList";
 
@@ -115,9 +116,19 @@ class BoxOrdersHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      orders: [],
       selectedOrders: [],
     };
+    
+    this.getOrders();
   }
+
+  getOrders = () => {
+    axios
+      .get("/orders/orders")
+      .then((res) => this.setState({ orders: res.data }))
+      .catch((err) => console.log(err));
+  };
 
   addOrder = (order) => {
     this.setState({ selectedOrders: [...this.state.selectedOrders, order] });
@@ -131,14 +142,14 @@ class BoxOrdersHistory extends Component {
   };
 
   render() {
-    const { selectedOrders } = this.state;
+    const { orders, selectedOrders } = this.state;
 
     return (
       <div className="box-orders-history">
         <Card className="box-orders-history__card">
           <div className="box-orders-history__title">Historia zamówień</div>
           <OrdersList
-            orders={mockOrders}
+            orders={orders}
             addOrder={this.addOrder}
             removeOrder={this.removeOrder}
             ordersSelected={selectedOrders.length}

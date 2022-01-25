@@ -45,7 +45,7 @@ class BoxFoodOrder extends Component {
         return {
           name: el.name,
           price: el.price,
-          ingredients: el.ingredients,
+          ingredients: el.selectedIngredient,
           amount: el.amount + 1,
         };
       } else {
@@ -54,7 +54,9 @@ class BoxFoodOrder extends Component {
     });
     if (!added) {
       filtered.push({
-        ...order,
+        name: order.name,
+        price: order.price,
+        ingredients: order.selectedIngredient,
         amount: 1,
       });
     }
@@ -86,7 +88,7 @@ class BoxFoodOrder extends Component {
 
   submitOrder = () => {
     axios
-      .post(`/orders/${cookies.get("portalUserToken")}`, {
+      .post(`/orders/orders/`, {
         dishes: this.state.orders,
       })
       .then((res) => {
