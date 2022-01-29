@@ -7,3 +7,7 @@ class OrderSerializers(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'dishes', 'paid', 'completed', 'timestamp', 'price']
+
+
+class PaidSerializers(serializers.Serializer):
+    paid = serializers.ListField(child=serializers.IntegerField())

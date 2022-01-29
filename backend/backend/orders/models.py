@@ -8,6 +8,7 @@ class Order(models.Model):
     completed = models.BooleanField(default=False, blank=True)
     timestamp = models.DateTimeField(default=timezone.now(), blank=True, null=True)
     user = models.CharField(max_length=64)
+    price = models.DecimalField(max_digits=12, decimal_places=2, null=True)
 
 
     # "dishes":[
