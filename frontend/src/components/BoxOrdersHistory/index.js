@@ -119,7 +119,7 @@ class BoxOrdersHistory extends Component {
       orders: [],
       selectedOrders: [],
     };
-    
+
     this.getOrders();
   }
 
@@ -147,7 +147,10 @@ class BoxOrdersHistory extends Component {
     return (
       <div className="box-orders-history">
         <Card className="box-orders-history__card">
-          <div className="box-orders-history__title">Historia zamówień</div>
+          <div className="box-orders-history__header">
+            <div className="box-orders-history__title">Historia zamówień</div>
+            <div className="box-orders-history__pay-button">Zapłać</div>
+          </div>
           <OrdersList
             orders={orders}
             addOrder={this.addOrder}
