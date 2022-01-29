@@ -88,19 +88,30 @@ class BoxFoodOrder extends Component {
 
   showModal = () => {
     const modal = document.querySelector(".box-food-order__modal");
-    const closeBtn = document.querySelector(".box-food-order__modal-close");
+    const background = document.querySelector(".modal-background");
     modal.style.display = "flex";
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+    background.style.display = "flex";
   };
 
   payNowOnClick = () => {
+    const modal = document.querySelector(".box-food-order__modal");
+    const background = document.querySelector(".modal-background");
+    modal.style.display = "none";
+    background.style.display = "none";
     // bramka
   };
 
   payLaterOnClick = () => {
+    const background = document.querySelector(".modal-background");
+    background.style.display = "none";
     this.props.navigation("/");
+  };
+
+  closeModal = () => {
+    const modal = document.querySelector(".box-food-order__modal");
+    const background = document.querySelector(".modal-background");
+    modal.style.display = "none";
+    background.style.display = "none";
   };
 
   submitOrder = () => {
@@ -147,7 +158,9 @@ class BoxFoodOrder extends Component {
         </div>
         <div class="box-food-order__modal">
           <div class="box-food-order__modal-content">
-            <span class="box-food-order__modal-close">&times;</span>
+            <span class="box-food-order__modal-close" onClick={this.closeModal}>
+              &times;
+            </span>
             <div class="box-food-order__modal-title">Zamówienie złożone!</div>
             <div class="box-food-order__modal-buttons">
               <Button className="button-submit" onClick={this.payNowOnClick}>
