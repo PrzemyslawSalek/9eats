@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'eats',
+    "orders"
 ]
 
 MIDDLEWARE = [
@@ -99,7 +100,7 @@ DATABASES = {
 
         'PASSWORD': 'admin',
 
-        'HOST': '192.168.100.12',
+        'HOST': '127.0.0.1',  # 192.168.100.12
 
         'PORT': '5432',
 

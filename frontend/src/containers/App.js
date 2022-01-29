@@ -12,11 +12,13 @@ export default function () {
     <Router>
       <Routes>
         <Route path="/" element={<CustomPage mainPage={BoxTileMenu} />} />
-        <Route path="/todo" element={<CustomPage mainPage={ToDo} />} />
-        <Route path="/login" element={<CustomPage mainPage={BoxAuth} />} />
         <Route
-          path="/food-order"
-          element={<CustomPage mainPage={BoxFoodOrder} />}
+          path="/todo"
+          element={<CustomPage title="To-do list" mainPage={ToDo} />}
+        />
+        <Route
+          path="/login"
+          element={<CustomPage title="Logowanie" mainPage={BoxAuth} />}
         />
       </Routes>
     </Router>
