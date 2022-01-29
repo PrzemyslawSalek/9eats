@@ -7,7 +7,7 @@ from rest_framework import generics
 
 
 class OrderView(generics.ListCreateAPIView):
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializers
 
     def get_queryset(self):
@@ -31,8 +31,6 @@ class OrderView(generics.ListCreateAPIView):
         
 
     def create(self, request):
-        print(request.data)
-        total_order_price = 0
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         id = self.perform_create(serializer)
@@ -40,7 +38,7 @@ class OrderView(generics.ListCreateAPIView):
 
 
 class PaidView(generics.CreateAPIView):
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     serializer_class = PaidSerializers
 
     def perform_create(self, serializer):
