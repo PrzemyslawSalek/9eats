@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, FormGroup, Input, Button, NavLink } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../../containers/pages/CustomPage";
 
 import { getCookies } from "../../../../utils/cookies";
 
@@ -28,6 +29,7 @@ class LoginForm extends Component {
           maxAge: 86400, //Set access token on 1 day
         });
         getCookies().set("refresh", res.data.refresh, { path: "/" });
+        this.props.user.fetch();
         this.props.navigation("/");
       })
       .catch((res) => console.log(res));
@@ -84,6 +86,7 @@ class LoginForm extends Component {
 
 export default function (props) {
   const navigation = useNavigate();
+  const user = React.useContext(UserContext); 
 
-  return <LoginForm {...props} navigation={navigation} />;
+  return <LoginForm {...props} navigation={navigation} user={user}/>;
 }

@@ -11,6 +11,7 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
+import { UserContext } from "../../pages/CustomPage";
 import { getCookies } from "../../../utils/cookies";
 
 import AvatarPhoto from "../../../images/avatar.jpeg";
@@ -49,6 +50,7 @@ class Header extends Component {
 
   logOut = () => {
     getCookies().remove("access");
+    this.props.user.fetch();
   };
 
   goOnWelcomePage = () => {
@@ -72,7 +74,7 @@ class Header extends Component {
           src={AvatarPhoto}
         />
         <DropdownToggle caret className="header__dropdown-toggle">
-          Szymon Sala
+          {this.props?.user?.user?.first_name + " " + this.props?.user?.user?.last_name}
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem>Profil</DropdownItem>
@@ -106,6 +108,7 @@ class Header extends Component {
 
 export default function (props) {
   const navigation = useNavigate();
+  const user = React.useContext(UserContext); 
 
-  return <Header {...props} navigation={navigation} />;
+  return <Header {...props} navigation={navigation} user={user}/>;
 }

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "universal-cookie";
 import { PaystackConsumer } from "react-paystack";
 import { config } from "../../paymentGateway";
+import { UserContext } from "../../containers/pages/CustomPage"
 
 import { formatCash } from "../../utils";
 
@@ -141,7 +141,7 @@ class BoxFoodOrder extends Component {
   render() {
     const { currentPrice, orders } = this.state;
     const componentProps = {
-      ...config(currentPrice.toString().replace(".", "")),
+      ...config(currentPrice.toString().replace(".", ""), this.props.user?.user?.email),
       text: "Paystack Button Implementation",
       onSuccess: (reference) => this.handleSuccess(reference),
       onClose: this.handleClose,
@@ -217,6 +217,7 @@ class BoxFoodOrder extends Component {
 
 export default function (props) {
   const navigation = useNavigate();
+  const user = React.useContext(UserContext); 
 
-  return <BoxFoodOrder {...props} navigation={navigation} />;
+  return <BoxFoodOrder {...props} navigation={navigation} user={user}/>;
 }
