@@ -1,19 +1,18 @@
 import axios from "axios";
-import Cookies from "universal-cookie";
 
-const cookies = new Cookies();
+import { getCookies } from "./utils/cookies";
 
 export default () => {
   axios.interceptors.response.use(
     (response) => {
-      if (!cookies.get("access") && cookies.get("refresh")) {
+      if (!getCookies().get("access") && getCookies().get("refresh")) {
         axios
           .post("/auth/login/refresh/", {
-            refresh: cookies.get("refresh"),
+            refresh: getCookies().get("refresh"),
           })
           .then(
             (res) =>
-              cookies.set("access", res.data.access, {
+              getCookies().set("access", res.data.access, {
                 path: "/",
                 maxAge: 86400,
               }) //Set access token on 1 day
@@ -34,7 +33,7 @@ export default () => {
 
   axios.interceptors.request.use(
     function (config) {
-      config.headers.Authorization = `Bearer ${cookies.get("access")}`;
+      config.headers.Authorization = `Bearer ${getCookies().get("access")}`;
       return config;
     },
     function (error) {

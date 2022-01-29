@@ -30,7 +30,7 @@ export default class CustomPage extends Component {
 
     return (
       <div className="custom-page">
-        <div class="modal-background" />
+        <div className="modal-background" />
         <Header />
         <Main mainPage={mainPage} />
         <Footer />

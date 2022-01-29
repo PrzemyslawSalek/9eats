@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 import {
   Navbar,
   NavLink,
@@ -12,12 +11,13 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
+import { getCookies } from "../../../utils/cookies";
+
 import AvatarPhoto from "../../../images/avatar.jpeg";
 import LogoPhoto from "../../../images/logo.svg";
 
 import "./Header.css";
 
-const cookies = new Cookies();
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -25,16 +25,16 @@ class Header extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      logged: cookies.get("access"),
+      logged: getCookies().get("access"),
     };
   }
 
   componentDidMount = () => {
-    cookies.addChangeListener(this.onCookieChange);
+    getCookies().addChangeListener(this.onCookieChange);
   };
 
   onCookieChange = () => {
-    this.setState({ logged: cookies.get("access") });
+    this.setState({ logged: getCookies().get("access") });
   };
 
   toggle = () => {
@@ -48,7 +48,7 @@ class Header extends Component {
   };
 
   logOut = () => {
-    cookies.remove("access");
+    getCookies().remove("access");
   };
 
   goOnWelcomePage = () => {

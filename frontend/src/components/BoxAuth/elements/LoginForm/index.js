@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Form, FormGroup, Input, Button, NavLink } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+
+import { getCookies } from "../../../../utils/cookies";
 
 import "./LoginForm.css";
 
-const cookies = new Cookies();
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +23,11 @@ class LoginForm extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        cookies.set("access", res.data.access, {
+        getCookies().set("access", res.data.access, {
           path: "/",
           maxAge: 86400, //Set access token on 1 day
         });
-        cookies.set("refresh", res.data.refresh, { path: "/" });
+        getCookies().set("refresh", res.data.refresh, { path: "/" });
         this.props.navigation("/");
       })
       .catch((res) => console.log(res));

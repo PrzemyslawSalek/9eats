@@ -10,7 +10,6 @@ import FoodOptions from "./elements/FoodOptions";
 
 import "./BoxFoodOrder.css";
 
-const cookies = new Cookies();
 class BoxFoodOrder extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +26,7 @@ class BoxFoodOrder extends Component {
       .then((res) => {
         const formatedData = res.data.map(function (el) {
           return {
+            id: el.id,
             name: el.name,
             price: parseFloat(el.price),
             ingredients: el.ingredients,
@@ -43,6 +43,7 @@ class BoxFoodOrder extends Component {
       if (el.name === order.name) {
         added = true;
         return {
+          id: el.id,
           name: el.name,
           price: el.price,
           ingredients: el.selectedIngredient,
@@ -54,6 +55,7 @@ class BoxFoodOrder extends Component {
     });
     if (!added) {
       filtered.push({
+        id: order.id,
         name: order.name,
         price: order.price,
         ingredients: order.selectedIngredient,
@@ -156,13 +158,18 @@ class BoxFoodOrder extends Component {
             </Button>
           </div>
         </div>
-        <div class="box-food-order__modal">
-          <div class="box-food-order__modal-content">
-            <span class="box-food-order__modal-close" onClick={this.closeModal}>
+        <div className="box-food-order__modal">
+          <div className="box-food-order__modal-content">
+            <span
+              className="box-food-order__modal-close"
+              onClick={this.closeModal}
+            >
               &times;
             </span>
-            <div class="box-food-order__modal-title">Zamówienie złożone!</div>
-            <div class="box-food-order__modal-buttons">
+            <div className="box-food-order__modal-title">
+              Zamówienie złożone!
+            </div>
+            <div className="box-food-order__modal-buttons">
               <Button className="button-submit" onClick={this.payNowOnClick}>
                 Zapłać teraz
               </Button>
