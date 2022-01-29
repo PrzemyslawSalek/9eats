@@ -1,5 +1,5 @@
 .box-orders-history {
-  display: block;
+  display: grid;
 }
 
 .box-orders-history__card {
@@ -33,23 +33,11 @@
   line-height: 1;
   color: #fff;
   text-align: center;
-  background-color: #242939;
+  background-color: #2429392f;
   border-radius: 100px;
-  cursor: pointer;
 }
 
-/* .box-orders-history__pay-button--active {
-  display: inline-block;
-  min-width: 10px;
-  max-height: 25px;
-  padding: 5px 7px;
-  font-size: 14px;
-  margin-left: 10px;
-  font-weight: bold;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  background-color: #242939;
-  border-radius: 100px;
+.active {
+  background-color: #242939 !important;
   cursor: pointer;
-} */
+}
