@@ -24,7 +24,9 @@ export default () => {
       const status = err.response?.status || 500;
       switch (status) {
         case 401: {
-          window.location.replace("/login");
+          if (window.location.pathname !== "/login"){
+            window.location.replace("/login");
+          }
           return Promise.reject(err);
         }
       }
