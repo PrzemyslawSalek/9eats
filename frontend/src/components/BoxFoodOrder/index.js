@@ -45,7 +45,7 @@ class BoxFoodOrder extends Component {
         return {
           name: el.name,
           price: el.price,
-          ingredients: el.ingredients,
+          ingredients: el.selectedIngredient,
           amount: el.amount + 1,
         };
       } else {
@@ -54,7 +54,9 @@ class BoxFoodOrder extends Component {
     });
     if (!added) {
       filtered.push({
-        ...order,
+        name: order.name,
+        price: order.price,
+        ingredients: order.selectedIngredient,
         amount: 1,
       });
     }
@@ -84,13 +86,30 @@ class BoxFoodOrder extends Component {
     this.props.navigation("/");
   };
 
+  showModal = () => {
+    const modal = document.querySelector(".box-food-order__modal");
+    const closeBtn = document.querySelector(".box-food-order__modal-close");
+    modal.style.display = "flex";
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+  };
+
+  payNowOnClick = () => {
+    // bramka
+  };
+
+  payLaterOnClick = () => {
+    this.props.navigation("/");
+  };
+
   submitOrder = () => {
     axios
-      .post(`/orders/${cookies.get("portalUserToken")}`, {
+      .post(`/orders/orders/`, {
         dishes: this.state.orders,
       })
-      .then((res) => {
-        // TO DO - bramka płatności
+      .then(() => {
+        this.showModal();
       })
       .catch((res) => console.log(res));
   };
@@ -124,6 +143,20 @@ class BoxFoodOrder extends Component {
             <Button className="button-cancel" onClick={this.onClickCancel}>
               Anuluj
             </Button>
+          </div>
+        </div>
+        <div class="box-food-order__modal">
+          <div class="box-food-order__modal-content">
+            <span class="box-food-order__modal-close">&times;</span>
+            <div class="box-food-order__modal-title">Zamówienie złożone!</div>
+            <div class="box-food-order__modal-buttons">
+              <Button className="button-submit" onClick={this.payNowOnClick}>
+                Zapłać teraz
+              </Button>
+              <Button className="button-cancel" onClick={this.payLaterOnClick}>
+                Zapłać później
+              </Button>
+            </div>
           </div>
         </div>
       </div>
