@@ -23,11 +23,15 @@ export default function () {
         />
         <Route
           path="/food-order"
-          element={<CustomPage title="Zamów jedzenie" mainPage={BoxFoodOrder} />}
+          element={
+            <CustomPage title="Zamów jedzenie" mainPage={BoxFoodOrder} />
+          }
         />
         <Route
           path="/orders/history"
-          element={<CustomPage title="Historia zamówień" mainPage={BoxOrdersHistory} />}
+          element={
+            <CustomPage title="Historia zamówień" mainPage={BoxOrdersHistory} />
+          }
         />
       </Routes>
     </Router>
