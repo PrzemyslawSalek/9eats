@@ -1,3 +1,4 @@
+from rest_framework.response import Response
 from eats.models import Eats
 from .models import Order
 from .serializers import OrderSerializers, PaidSerializers
@@ -26,6 +27,16 @@ class OrderView(generics.ListCreateAPIView):
             price=total_order_price
         )
         order.save()
+        return order.id
+        
+
+    def create(self, request):
+        print(request.data)
+        total_order_price = 0
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        id = self.perform_create(serializer)
+        return Response({"id": id})
 
 
 class PaidView(generics.CreateAPIView):

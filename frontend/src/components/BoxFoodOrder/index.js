@@ -3,6 +3,8 @@ import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { PaystackConsumer } from "react-paystack";
+import { config } from "../../paymentGateway";
 
 import { formatCash } from "../../utils";
 
@@ -14,9 +16,10 @@ class BoxFoodOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPrice: 0,
+      currentPrice: 0.00,
       orders: [],
       food: [],
+      orderId: undefined
     };
   }
 
@@ -95,14 +98,6 @@ class BoxFoodOrder extends Component {
     background.style.display = "flex";
   };
 
-  payNowOnClick = () => {
-    const modal = document.querySelector(".box-food-order__modal");
-    const background = document.querySelector(".modal-background");
-    modal.style.display = "none";
-    background.style.display = "none";
-    // bramka
-  };
-
   payLaterOnClick = () => {
     const background = document.querySelector(".modal-background");
     background.style.display = "none";
@@ -121,14 +116,36 @@ class BoxFoodOrder extends Component {
       .post(`/orders/orders/`, {
         dishes: this.state.orders,
       })
-      .then(() => {
+      .then((res) => {
+        this.setState({ orderId: res.data.id });
         this.showModal();
       })
       .catch((res) => console.log(res));
   };
 
+  handleSuccess = (reference) => {
+    axios
+      .post(`/orders/paid/`, {
+        paid: [this.state.orderId]
+      })
+      .then((res) => {
+        this.setState({ orderId: res.data.id });
+      })
+      .catch((res) => console.log(res));
+  };
+
+  handleClose = () => {
+    this.payLaterOnClick();
+  }
+
   render() {
     const { currentPrice, orders } = this.state;
+    const componentProps = {
+      ...config(currentPrice.toString().replace(".", "")),
+      text: "Paystack Button Implementation",
+      onSuccess: (reference) => this.handleSuccess(reference),
+      onClose: this.handleClose,
+    };
 
     return (
       <div className="box-food-order">
@@ -170,9 +187,23 @@ class BoxFoodOrder extends Component {
               Zamówienie złożone!
             </div>
             <div className="box-food-order__modal-buttons">
-              <Button className="button-submit" onClick={this.payNowOnClick}>
-                Zapłać teraz
-              </Button>
+              <PaystackConsumer {...componentProps}>
+                {({ initializePayment }) => (
+                  <Button
+                    className="button-submit"
+                    onClick={() =>{
+                      const modal = document.querySelector(".box-food-order__modal");
+                      const background = document.querySelector(".modal-background");
+                      modal.style.display = "none";
+                      background.style.display = "none";
+                      initializePayment(this.handleSuccess, this.handleClose)
+                    }
+                    }
+                  >
+                    Zapłać teraz
+                  </Button>
+                )}
+              </PaystackConsumer>
               <Button className="button-cancel" onClick={this.payLaterOnClick}>
                 Zapłać później
               </Button>
