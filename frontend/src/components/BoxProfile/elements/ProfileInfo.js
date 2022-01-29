@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import AvatarPhoto from "../../../images/avatar.jpeg";
+import { UserContext } from "../../../containers/pages/CustomPage";
 
 import "./ProfileInfo.css";
 
@@ -13,10 +14,18 @@ class ProfileInfo extends Component {
           alt="avatar"
           src={AvatarPhoto}
         />
-        <div className="profile-info__name">Przemysław Sałek</div>
+        <div className="profile-info__name">
+          {this.props?.user?.user?.first_name +
+            " " +
+            this.props?.user?.user?.last_name}
+        </div>
       </div>
     );
   }
 }
 
-export default ProfileInfo;
+export default function (props) {
+  const user = React.useContext(UserContext);
+
+  return <ProfileInfo {...props} user={user} />;
+}

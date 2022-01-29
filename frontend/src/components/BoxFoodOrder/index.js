@@ -129,7 +129,7 @@ class BoxFoodOrder extends Component {
         paid: [this.state.orderId]
       })
       .then((res) => {
-        this.setState({ orderId: res.data.id });
+        console.log(res);
       })
       .catch((res) => console.log(res));
   };

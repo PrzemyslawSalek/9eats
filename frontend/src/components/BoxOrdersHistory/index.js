@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Card, Container } from "reactstrap";
 import axios from "axios";
+import { PaystackConsumer } from "react-paystack";
+import { config } from "../../paymentGateway";
+import { UserContext } from "../../containers/pages/CustomPage"
 
 import OrdersList from "./elements/OrdersList";
 
@@ -11,6 +13,7 @@ class BoxOrdersHistory extends Component {
     this.state = {
       orders: [],
       selectedOrders: [],
+      currentPrice: 0,
     };
   }
 
@@ -39,6 +42,7 @@ class BoxOrdersHistory extends Component {
 
   addOrder = (order) => {
     this.setState({ selectedOrders: [...this.state.selectedOrders, order] });
+    this.setState({ currentPrice: this.state.currentPrice + order.price });
   };
 
   removeOrder = (order) => {
@@ -46,36 +50,60 @@ class BoxOrdersHistory extends Component {
       return el.id !== order.id;
     });
     this.setState({ selectedOrders: filtered });
+    this.setState({ currentPrice: this.state.currentPrice - order.price });
   };
 
-  payForOrders = () => {
+  handleSuccess = (reference) => {
     const { selectedOrders } = this.state;
 
-    if (selectedOrders.length > 0) {
-      // PAY
-      // pobranie orders na nowo
-    }
+    const id = []
+    selectedOrders.map((e)=>{id.push(e.id)})
+
+    axios
+      .post(`/orders/paid/`, {
+        paid: id,
+      })
+      .then((res) => {
+        this.getOrders();
+        this.setState({selectedOrders:[]})
+        this.setState({currentPrice: 0})
+      })
+      .catch((res) => console.log(res));
   };
 
   render() {
-    const { orders, selectedOrders } = this.state;
+    const { orders, selectedOrders, currentPrice } = this.state;
 
-    console.log(orders);
+    const componentProps = {
+      ...config(
+        currentPrice.toString().replace(".", ""),
+        this.props.user?.user?.email
+      ),
+      text: "Paystack Button Implementation",
+      onSuccess: (reference) => this.handleSuccess(reference),
+      onClose: this.handleClose,
+    };
 
     return (
       <div className="box-orders-history">
         <div className="box-orders-history__header">
           <div className="box-orders-history__title">Historia zamówień</div>
-          <div
-            className={
-              selectedOrders.length > 0
-                ? "box-orders-history__pay-button--active"
-                : "box-orders-history__pay-button"
-            }
-            onClick={this.payForOrders}
-          >
-            Zapłać
-          </div>
+          <PaystackConsumer {...componentProps}>
+            {({ initializePayment }) => (
+              <div
+                className={
+                  selectedOrders.length > 0
+                    ? "box-orders-history__pay-button--active"
+                    : "box-orders-history__pay-button"
+                }
+                onClick={() =>
+                  initializePayment(this.handleSuccess, this.handleClose)
+                }
+              >
+                Zapłać
+              </div>
+            )}
+          </PaystackConsumer>
         </div>
         <OrdersList
           orders={orders}
@@ -88,4 +116,8 @@ class BoxOrdersHistory extends Component {
   }
 }
 
-export default BoxOrdersHistory;
+export default function (props) {
+  const user = React.useContext(UserContext);
+
+  return <BoxOrdersHistory {...props} user={user} />;
+}
