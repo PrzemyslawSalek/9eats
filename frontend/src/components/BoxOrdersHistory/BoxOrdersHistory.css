@@ -1,0 +1,55 @@
+.box-orders-history {
+  display: block;
+}
+
+.box-orders-history__card {
+  height: 100%;
+  border: 1px solid #242939;
+}
+
+.box-orders-history__header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25px;
+  border-bottom: 3px solid #242939;
+  padding-top: 20px;
+}
+
+.box-orders-history__title {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.box-orders-history__pay-button {
+  display: inline-block;
+  min-width: 10px;
+  max-height: 25px;
+  padding: 5px 7px;
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  background-color: #242939;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+/* .box-orders-history__pay-button--active {
+  display: inline-block;
+  min-width: 10px;
+  max-height: 25px;
+  padding: 5px 7px;
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  background-color: #242939;
+  border-radius: 100px;
+  cursor: pointer;
+} */

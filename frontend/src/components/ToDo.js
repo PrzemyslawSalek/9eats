@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Modal from "./Modal";
 import axios from "axios";
-import Header from "../containers/pages/elements/Header";
 
 class ToDo extends Component {
   constructor(props) {

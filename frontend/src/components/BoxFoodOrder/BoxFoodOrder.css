@@ -1,0 +1,111 @@
+.box-food-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.box-food-order__title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 30px;
+  border-bottom: 3px solid #242939;
+  padding-top: 25px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.box-food-order__summary {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 10px;
+  padding-left: 4%;
+  padding-right: 20%;
+  border-top: 3px solid #242939;
+  padding-top: 25px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.box-food-order__summary-title {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #2429390e;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.box-food-order__summary-content {
+  padding-top: 12px;
+  padding-left: 15px;
+  font-size: 16px;
+}
+
+.box-food-order__summary-buttons {
+  display: flex;
+  padding-top: 15px;
+  padding-left: 15px;
+  gap: 15px;
+}
+
+.button-submit {
+  box-shadow: unset !important;
+  background-color: #242939 !important;
+  border-color: #242939 !important;
+}
+
+.button-cancel {
+  box-shadow: unset !important;
+  color: #242939 !important;
+  background-color: white !important;
+  border-color: #242939 !important;
+}
+
+.box-food-order__modal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 1111;
+  background-color: white;
+  border: 2px solid #242939;
+  border-radius: 10px;
+  min-width: 360px;
+  min-height: 280px;
+  top: 25%;
+}
+
+.box-food-order__modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  background-color: white;
+}
+
+.box-food-order__modal-close {
+  position: absolute;
+  right: 15px;
+  top: 2px;
+  font-weight: 500;
+  font-size: large;
+  cursor: pointer;
+}
+
+.box-food-order__modal-title {
+  display: flex;
+  justify-content: center;
+}
+
+.box-food-order__modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
