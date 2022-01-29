@@ -64,27 +64,25 @@ class BoxOrdersHistory extends Component {
 
     return (
       <div className="box-orders-history">
-        <Card className="box-orders-history__card">
-          <div className="box-orders-history__header">
-            <div className="box-orders-history__title">Historia zamówień</div>
-            <div
-              className={
-                selectedOrders.length > 0
-                  ? "box-orders-history__pay-button active"
-                  : "box-orders-history__pay-button"
-              }
-              onClick={this.payForOrders}
-            >
-              Zapłać
-            </div>
+        <div className="box-orders-history__header">
+          <div className="box-orders-history__title">Historia zamówień</div>
+          <div
+            className={
+              selectedOrders.length > 0
+                ? "box-orders-history__pay-button--active"
+                : "box-orders-history__pay-button"
+            }
+            onClick={this.payForOrders}
+          >
+            Zapłać
           </div>
-          <OrdersList
-            orders={orders}
-            addOrder={this.addOrder}
-            removeOrder={this.removeOrder}
-            ordersSelected={selectedOrders.length}
-          />
-        </Card>
+        </div>
+        <OrdersList
+          orders={orders}
+          addOrder={this.addOrder}
+          removeOrder={this.removeOrder}
+          ordersSelected={selectedOrders.length}
+        />
       </div>
     );
   }

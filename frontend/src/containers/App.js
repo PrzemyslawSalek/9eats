@@ -7,12 +7,17 @@ import BoxTileMenu from "../components/BoxTileMenu/index";
 import BoxAuth from "../components/BoxAuth/index";
 import BoxFoodOrder from "../components/BoxFoodOrder";
 import BoxOrdersHistory from "../components/BoxOrdersHistory";
+import BoxProfile from "../components/BoxProfile";
 
 export default function () {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<CustomPage mainPage={BoxTileMenu} />} />
+        <Route
+          path="/profile"
+          element={<CustomPage title="Twój profil" mainPage={BoxProfile} />}
+        />
         <Route
           path="/todo"
           element={<CustomPage title="To-do list" mainPage={ToDo} />}

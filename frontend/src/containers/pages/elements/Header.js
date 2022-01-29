@@ -61,6 +61,10 @@ class Header extends Component {
     this.props.navigation("/orders/history");
   };
 
+  goOnProfile = () => {
+    this.props.navigation("/profile");
+  };
+
   renderProfileButton = () =>
     !this.state.logged ? (
       <NavLink className="header__navlink" onClick={this.logIn}>
@@ -74,10 +78,12 @@ class Header extends Component {
           src={AvatarPhoto}
         />
         <DropdownToggle caret className="header__dropdown-toggle">
-          {this.props?.user?.user?.first_name + " " + this.props?.user?.user?.last_name}
+          {this.props?.user?.user?.first_name +
+            " " +
+            this.props?.user?.user?.last_name}
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem>Profil</DropdownItem>
+          <DropdownItem onClick={this.goOnProfile}>Profil</DropdownItem>
           <DropdownItem onClick={this.goOnHistoryOrders}>
             Twoje zamówienia
           </DropdownItem>
@@ -108,7 +114,7 @@ class Header extends Component {
 
 export default function (props) {
   const navigation = useNavigate();
-  const user = React.useContext(UserContext); 
+  const user = React.useContext(UserContext);
 
-  return <Header {...props} navigation={navigation} user={user}/>;
+  return <Header {...props} navigation={navigation} user={user} />;
 }
