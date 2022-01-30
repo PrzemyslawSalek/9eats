@@ -113,8 +113,8 @@ class BoxFoodOrder extends Component {
 
   submitOrder = () => {
     const { orders } = this.state;
-    
-    if (orders.lenght > 0) {
+
+    if (orders.length > 0) {
       axios
         .post(`/orders/orders/`, {
           dishes: this.state.orders,
