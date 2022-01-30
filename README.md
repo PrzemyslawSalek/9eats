@@ -22,3 +22,24 @@ Głównym celem projektu jest stworzenie wewnętrznej aplikacji dla firm. Platfo
 ## Zespół
 - Przemysław Sałek
 - Szymon Sala
+
+## Uruchomienie
+Frontend:
+1. Instalacja Node'a globalnie
+2. Przejście do katalogu frontend
+3. npm install
+4. npm start
+
+
+Backend:
+1. Instalacja pipenv globalnie ( mozna tez pip wszystkie zalzności znajdują się w requirements.txt)
+2. Przejście do katalogu backend
+3. pipenv shell
+4. pipenv install
+5. Przejście do katalogu z folderem manage.py
+6. python mange.py runserver
+
+
+Baza danych PostgreSQL:
+1. Instalacja PostgreSQL https://www.postgresql.org/download/
+2. Uruchomienie servera https://tableplus.com/blog/2018/10/how-to-start-stop-restart-postgresql-server.html
