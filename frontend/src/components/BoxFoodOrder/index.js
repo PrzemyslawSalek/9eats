@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PaystackConsumer } from "react-paystack";
 import { config } from "../../paymentGateway";
-import { UserContext } from "../../containers/pages/CustomPage"
+import { UserContext } from "../../containers/pages/CustomPage";
 
 import { formatCash } from "../../utils";
 
@@ -16,10 +16,10 @@ class BoxFoodOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPrice: 0.00,
+      currentPrice: 0.0,
       orders: [],
       food: [],
-      orderId: undefined
+      orderId: undefined,
     };
   }
 
@@ -49,7 +49,7 @@ class BoxFoodOrder extends Component {
           id: el.id,
           name: el.name,
           price: el.price,
-          ingredients: el.selectedIngredient,
+          ingredients: el.ingredients,
           amount: el.amount + 1,
         };
       } else {
@@ -112,21 +112,25 @@ class BoxFoodOrder extends Component {
   };
 
   submitOrder = () => {
-    axios
-      .post(`/orders/orders/`, {
-        dishes: this.state.orders,
-      })
-      .then((res) => {
-        this.setState({ orderId: res.data.id });
-        this.showModal();
-      })
-      .catch((res) => console.log(res));
+    const { orders } = this.state;
+    
+    if (orders.lenght > 0) {
+      axios
+        .post(`/orders/orders/`, {
+          dishes: this.state.orders,
+        })
+        .then((res) => {
+          this.setState({ orderId: res.data.id });
+          this.showModal();
+        })
+        .catch((res) => console.log(res));
+    }
   };
 
   handleSuccess = (reference) => {
     axios
       .post(`/orders/paid/`, {
-        paid: [this.state.orderId]
+        paid: [this.state.orderId],
       })
       .then((res) => {
         console.log(res);
@@ -136,12 +140,15 @@ class BoxFoodOrder extends Component {
 
   handleClose = () => {
     this.payLaterOnClick();
-  }
+  };
 
   render() {
     const { currentPrice, orders } = this.state;
     const componentProps = {
-      ...config(currentPrice.toString().replace(".", ""), this.props.user?.user?.email),
+      ...config(
+        currentPrice.toString().replace(".", ""),
+        this.props.user?.user?.email
+      ),
       text: "Paystack Button Implementation",
       onSuccess: (reference) => this.handleSuccess(reference),
       onClose: this.handleClose,
@@ -149,7 +156,14 @@ class BoxFoodOrder extends Component {
 
     return (
       <div className="box-food-order">
-        <div className="box-food-order__title">Poniedziałek 16.01.2022</div>
+        <div className="box-food-order__title">
+          {new Date().toLocaleDateString("pl", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </div>
         <FoodOptions
           foodOptions={this.state.food}
           addOrder={this.addOrder}
@@ -161,7 +175,7 @@ class BoxFoodOrder extends Component {
             {orders &&
               orders.map((option, key) => (
                 <p key={key}>
-                  {option.name} - {option.selectedIngredient} x{option.amount}
+                  {option.name} - {option.ingredients} x{option.amount}
                 </p>
               ))}
             {`Wartość zamówienia: ${formatCash(currentPrice)}`}
@@ -191,14 +205,16 @@ class BoxFoodOrder extends Component {
                 {({ initializePayment }) => (
                   <Button
                     className="button-submit"
-                    onClick={() =>{
-                      const modal = document.querySelector(".box-food-order__modal");
-                      const background = document.querySelector(".modal-background");
+                    onClick={() => {
+                      const modal = document.querySelector(
+                        ".box-food-order__modal"
+                      );
+                      const background =
+                        document.querySelector(".modal-background");
                       modal.style.display = "none";
                       background.style.display = "none";
-                      initializePayment(this.handleSuccess, this.handleClose)
-                    }
-                    }
+                      initializePayment(this.handleSuccess, this.handleClose);
+                    }}
                   >
                     Zapłać teraz
                   </Button>
@@ -217,7 +233,7 @@ class BoxFoodOrder extends Component {
 
 export default function (props) {
   const navigation = useNavigate();
-  const user = React.useContext(UserContext); 
+  const user = React.useContext(UserContext);
 
-  return <BoxFoodOrder {...props} navigation={navigation} user={user}/>;
+  return <BoxFoodOrder {...props} navigation={navigation} user={user} />;
 }

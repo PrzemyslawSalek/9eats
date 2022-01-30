@@ -3,32 +3,21 @@ import React, { Component } from "react";
 import "./IngredientButton.css";
 
 class IngredientButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clicked: false,
-      selectValue: "",
-    };
-  }
-
   onButtonClick = (e) => {
     if (!this.props.selectedIngredient) {
-      this.setState({
-        clicked: !this.state.clicked,
-        selectValue: e.currentTarget.textContent,
-      });
       this.props.setIngredient(e.currentTarget.textContent);
-    } else if (this.props.selectedIngredient === e.currentTarget.textContent) {
-      this.setState({
-        clicked: !this.state.clicked,
-        selectValue: "",
-      });
+    } else if (
+      this.props.counter === 0 &&
+      this.props.selectedIngredient === e.currentTarget.textContent
+    ) {
       this.props.setIngredient("");
     }
   };
 
   selectClass = () => {
-    return this.state.clicked
+    const { name, selectedIngredient } = this.props;
+
+    return selectedIngredient === name
       ? "ingredient-button clicked"
       : "ingredient-button";
   };

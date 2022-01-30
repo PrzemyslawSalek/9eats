@@ -1,27 +1,32 @@
 .food-option {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 35px;
-    height: 125px;
-    border-bottom: 2px solid #2429390e;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 35px;
+  height: 125px;
+  border-bottom: 2px solid #2429390e;
 }
 
 .food-option__dish {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .food-option__name {
-    font-weight: 500;
-    margin-top: 40px;
+  font-weight: 500;
+  margin-top: 35px;
 }
 
 .food-option__ingredients {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 19px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 19px;
+}
+
+.food-option__card {
+  margin: 10px;
+  border: 1px solid #242939;
 }

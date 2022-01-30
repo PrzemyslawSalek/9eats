@@ -4,28 +4,21 @@ import { formatCash } from "../../../utils";
 import "./OrderButton.css";
 
 class OrderButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 0,
-    };
-  }
-
   onClickButton = () => {
-    if (this.state.counter < 99) {
+    if (this.props.selectedIngredient && this.props.counter < 99) {
       this.props.addOrder(this.props.option);
-      this.setState({ counter: this.state.counter + 1 });
+      this.props.changeCounter(this.props.counter + 1);
     }
   };
 
   onClickClear = () => {
+    this.props.setIngredient("");
     this.props.removeOrder(this.props.option);
-    this.setState({ counter: 0 });
+    this.props.changeCounter(0);
   };
 
   render() {
-    const { counter } = this.state;
-    const { option } = this.props;
+    const { counter, option } = this.props;
 
     return (
       <div className="order-button">

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Card } from "reactstrap";
 
 import OrderButton from "./OrderButton";
 import IngredientButton from "./IngredientButton";
@@ -11,17 +12,37 @@ class FoodOption extends Component {
     super(props);
 
     this.state = {
-      clicked: false,
+      counter: 0,
       selectedIngredient: "",
+      ingredients: [
+        { name: "ziemniaki", main: false },
+        { name: "frytki", main: false },
+        { name: "ryż", main: false },
+        { name: "kasza gryczana", main: false },
+        { name: "kasza pęczak", main: false },
+      ],
     };
+  }
 
-    this.ingredients = [
-      { name: "Ziemniaki", main: false },
-      { name: "Frytki", main: false },
-      { name: "Ryż", main: false },
-      { name: "Kasza gryczana", main: false },
-      { name: "Kasza pęczak", main: false },
-    ];
+  componentDidMount() {
+    const filter = this.props.option.ingredients.map((x) => {
+      return x;
+    });
+
+    const filtered = this.state.ingredients.map((x) => {
+      if (filter.includes(x.name)) {
+        return {
+          name: x.name,
+          main: true,
+        };
+      } else {
+        return {
+          name: x.name,
+          main: false,
+        };
+      }
+    });
+    this.setState({ ingredients: filtered });
   }
 
   setIngredient = (ingredient) => {
@@ -34,45 +55,56 @@ class FoodOption extends Component {
       selectedIngredient: this.state.selectedIngredient,
     };
 
-    console.log(orderWithIngredient);
     this.props.addOrder(orderWithIngredient);
   };
 
+  changeCounter = (counter) => {
+    this.setState({ counter: counter });
+  };
+
   render() {
-    const { selectedIngredient } = this.state;
+    const { counter, ingredients, selectedIngredient } = this.state;
     const { option, removeOrder } = this.props;
 
     return (
-      <div className="food-option">
-        <div className="food-option__dish">
-          <div className="food-option__name">{option.name}</div>
-          <div className="food-option__ingredients">
-            {option.ingredients &&
-              option.ingredients.map((name, key) => (
-                <IngredientButton
-                  key={key}
-                  name={name}
-                  selectedIngredient={selectedIngredient}
-                  setIngredient={this.setIngredient}
-                />
-              ))}
-            <IngredientDropdown
-              ingredients={this.ingredients}
-              selectedIngredient={selectedIngredient}
-              setIngredient={this.setIngredient}
-            />
+      <Card className="food-option__card">
+        <div className="food-option">
+          <div className="food-option__dish">
+            <div className="food-option__name">{option.name}</div>
+            <div className="food-option__ingredients">
+              {option.ingredients &&
+                option.ingredients.map((name, key) => (
+                  <IngredientButton
+                    key={key}
+                    name={name}
+                    selectedIngredient={selectedIngredient}
+                    setIngredient={this.setIngredient}
+                    counter={counter}
+                  />
+                ))}
+              <IngredientDropdown
+                ingredients={ingredients}
+                selectedIngredient={selectedIngredient}
+                setIngredient={this.setIngredient}
+                counter={counter}
+              />
+            </div>
+          </div>
+          <div className="food-option__button">
+            {
+              <OrderButton
+                option={option}
+                addOrder={this.addOrderWithSelectedIngredient}
+                removeOrder={removeOrder}
+                selectedIngredient={selectedIngredient}
+                setIngredient={this.setIngredient}
+                counter={counter}
+                changeCounter={this.changeCounter}
+              />
+            }
           </div>
         </div>
-        <div className="food-option__button">
-          {
-            <OrderButton
-              option={option}
-              addOrder={this.addOrderWithSelectedIngredient}
-              removeOrder={removeOrder}
-            />
-          }
-        </div>
-      </div>
+      </Card>
     );
   }
 }

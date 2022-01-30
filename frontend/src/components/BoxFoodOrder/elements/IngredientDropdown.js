@@ -15,13 +15,8 @@ class IngredientDropdown extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      selectValue: "",
     };
   }
-
-  handleDropdownChange = (e) => {
-    this.setState({ selectValue: e.target.value });
-  };
 
   toggle = () => {
     this.setState({
@@ -30,28 +25,28 @@ class IngredientDropdown extends Component {
   };
 
   changeValue = (e) => {
-    if (!this.props.selectedIngredient && !this.state.selectValue) {
-      this.setState({ selectValue: e.currentTarget.textContent });
+    if (!this.props.selectedIngredient) {
       this.props.setIngredient(e.currentTarget.textContent);
-    } else if (this.props.selectedIngredient === e.currentTarget.textContent) {
-      this.setState({ selectValue: "" });
+    } else if (
+      this.props.counter === 0 &&
+      this.props.selectedIngredient === e.currentTarget.textContent
+    ) {
       this.props.setIngredient("");
     }
   };
 
   render() {
-    const { selectValue } = this.state;
-    const { ingredients } = this.props;
+    const { ingredients, selectedIngredient } = this.props;
 
     return (
       <div className="ingredient-dropdown">
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-          {selectValue ? (
+          {ingredients.some((e) => !e.main && e.name === selectedIngredient) ? (
             <DropdownToggle
               caret
               className="ingredient-dropdown-toggle selected"
             >
-              {selectValue}
+              {selectedIngredient}
             </DropdownToggle>
           ) : (
             <DropdownToggle caret className="ingredient-dropdown-toggle">
@@ -60,11 +55,14 @@ class IngredientDropdown extends Component {
           )}
           <DropdownMenu>
             {ingredients &&
-              ingredients.map((ingredient, key) => (
-                <DropdownItem onClick={this.changeValue} key={key}>
-                  {ingredient.name}
-                </DropdownItem>
-              ))}
+              ingredients.map(
+                (ingredient, key) =>
+                  !ingredient.main && (
+                    <DropdownItem onClick={this.changeValue} key={key}>
+                      {ingredient.name}
+                    </DropdownItem>
+                  )
+              )}
           </DropdownMenu>
         </Dropdown>
       </div>
